@@ -118,7 +118,7 @@ def print_current_point(session: Session):
     point = re.findall("积分: (\d+)", res.text)
 
     if len(point) != 0:
-        print("帳戶目前積分 : " + points[0])
+        print("帳戶目前積分 : " + point[0])
     else:
         print("無法取得帳戶積分，可能頁面存在錯誤或者未登入 !")
     time.sleep(5)
