@@ -1,0 +1,29 @@
+name: "Hostloc Gain Point Task"
+
+on:
+  schedule:
+    - cron: "15 15 * * *"
+  workflow_dispatch:
+
+jobs:
+  gain:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          ref: main
+
+    - name: Setup Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: "3.x"
+
+    - name: "Install Dependency"
+      run: python -m pip install --upgrade requests pyaes
+
+    - name: "Gain Point"
+      env:
+        HOSTLOC_USERNAME: ${{ secrets.HOSTLOC_USERNAME }}
+        HOSTLOC_PASSWORD: ${{ secrets.HOSTLOC_PASSWORD }}
+      run: python hostloc_gain_point.py
